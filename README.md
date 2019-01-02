@@ -1,7 +1,6 @@
 # HUMISERY_forecaster
 
-<table>
-{| class="wikitable" style="text-align: center; height: 200px; border: none; background: none; margin-left: auto; margin-right: auto; font-size: 90%"
+<table; class="wikitable"; style=text-align: center; height: 200px; border: none; background: none; margin-left: auto; margin-right: auto; font-size: 90%">
 |+ Humidex
 |-
 ! rowspan=2 colspan=2 style="border: none; background: none;" | &nbsp;
