@@ -1,6 +1,6 @@
 # HUMISERY_forecaster
 
-
+<table>
 {| class="wikitable" style="text-align: center; height: 200px; border: none; background: none; margin-left: auto; margin-right: auto; font-size: 90%"
 |+ Humidex
 |-
@@ -96,3 +96,4 @@
 ! scope="row" | 28
 | – || – || – || – || – || – || – || – || – || – || – || – || – || style="background: darkorange" | 44 || style="background: darkorange" | 45 || style="background: red; color: white" | 46 || style="background: red; color: white" | 47 || style="background: red; color: white" | 48 || style="background: red; color: white" | 49 || style="background: red; color: white" | 50 || style="background: red; color: white" | 51 || style="background: red; color: white" | 52 || style="background: red; color: white" | 53 || style="background: red; color: white" | 54 || style="background: red; color: white" | 55 || style="background: red; color: white"  | 56 || style="background: red; color: white" | 57 || style="background: red; color: white" | 58 || style="background: red; color: white" | 59
 |}
+</table>
