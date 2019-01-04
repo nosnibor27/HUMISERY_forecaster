@@ -1,15 +1,24 @@
 #dependent packages
+
+#looking up elevation
 library(ggmap)
+#for naming the array from the input string
 library(stringr)
+#for downloading data
 library(RNetCDF)
 
-#Add sites of interest here using "Town State"
+#adding elevation data
+elevation_grid <- open.nc("metdata_elevationdata.nc")
+elevation_ref <- var.get.nc(elevation_grid,variable=2)
+
+#Add site of interest here using "Town State"
 sites <- "Orlando Florida"
 
 #creating a data frame
 locations <- data.frame(sites,stringsAsFactors = FALSE)
 
 #number of sites in location file
+#recycled from other respository when downloading multiple towns at once
 N <- nrow(locations)
 
 #adding column for town name (used for labelling arrays)
@@ -25,10 +34,6 @@ for (n in 1:N){
   locations$lon[n] <- as.numeric(gps[1])
   locations$lat[n] <- as.numeric(gps[2])
 }
-
-#adding elevation data
-elevation_grid <- open.nc("metdata_elevationdata.nc")
-elevation_ref <- var.get.nc(elevation_grid,variable=2)
 
 #adding elevation column
 locations$elevation <- rep(NA,N)
@@ -281,9 +286,9 @@ PLOT_SIM_HDX_45 <- function(n,month,title){
   #collecting arrays
   A <- get(paste0(locations$town[n],"_hist"))
   B <- get(paste0(locations$town[n],"_45"))
-  #calculating RH
+  #calculating HDX
   for(j in 1:20){
-    #calculating RH by model
+    #calculating HDX by model
     A[4,j,] <- HDX(locations$elevation[n], A[1,j,], A[2,j,], A[3,j,])
     B[4,j,] <- HDX(locations$elevation[n], B[1,j,], B[2,j,], B[3,j,])
   }
@@ -292,7 +297,7 @@ PLOT_SIM_HDX_45 <- function(n,month,title){
        ylab="Humisery (°C)",
        main=title,axes=FALSE)
   box()
-  axis(1,at=seq(0,150,25),las=2,labels=seq(1950,2100,25))
+  axis(1,at=seq(0,150,25),las=1,labels=seq(1950,2100,25))
   axis(2,at=seq(0,50,5),las=2)
   rect(-10,-10,160,20,density=NA,col=col.alpha("blue",0.25))
   rect(-10,20,160,30,density=NA,col=col.alpha("green",0.25))
@@ -344,7 +349,7 @@ PLOT_SIM_HDX_85 <- function(n,month,title){
        ylab="Humisery (°C)",
        main=title,axes=FALSE)
   box()
-  axis(1,at=seq(0,150,25),las=2,labels=seq(1950,2100,25))
+  axis(1,at=seq(0,150,25),las=1,labels=seq(1950,2100,25))
   axis(2,at=seq(0,50,5),las=2)
   rect(-10,-10,160,20,density=NA,col=col.alpha("blue",0.25))
   rect(-10,20,160,30,density=NA,col=col.alpha("green",0.25))
@@ -380,7 +385,7 @@ PLOT_SIM_HDX_85 <- function(n,month,title){
          fill=c("green","yellow","orange","red"))
 }
 
-#plotting example
+#plotting example to display at the end
 par(mfrow=c(1,2))
 PLOT_SIM_HDX_45(1,7,"Orlando, FL; June Humisery; RCP 4.5")
 PLOT_SIM_HDX_85(1,7,"Orlando, FL; June Humisery; RCP 8.5")
